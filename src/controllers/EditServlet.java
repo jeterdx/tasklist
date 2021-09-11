@@ -42,8 +42,10 @@ public class EditServlet extends HttpServlet {
         request.setAttribute("task", t);
         request.setAttribute("_token", request.getSession().getId());
 
-        // taskIDをセッションスコープに登録
-        request.getSession().setAttribute("task_id", t.getId());
+        // 編集する先のデータがない場合にはnullエラーが出てくるのでそれを回避する処理、そしてお探しのページはありません、を表示できるようにする。
+        if(t != null) {
+            request.getSession().setAttribute("task_id", t.getId());
+        }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/edit.jsp");
         rd.forward(request, response);
