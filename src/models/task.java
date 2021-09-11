@@ -7,11 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "kadai")
-public class kadai {
+@NamedQueries({
+    @NamedQuery(
+        name = "getAlltasks",
+        query = "SELECT m FROM task AS m ORDER BY m.id DESC" //JPQLという特殊なクエリで、select m は select *と一緒
+    )
+})
+@Table(name = "task")
+public class task {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
